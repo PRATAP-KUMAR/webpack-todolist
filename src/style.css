@@ -2,6 +2,10 @@ body {
   background-color: #d3d3d3;
 }
 
+.todo-list {
+padding: 0;
+}
+
 .box {
   margin: 200px;
   padding: 20px;
