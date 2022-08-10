@@ -2,10 +2,42 @@ body {
   background-color: bisque;
 }
 
-h1 {
-  color: orange;
- }
- 
-.place-holder {
-  color: blue;
- }
+.box {
+  margin: 200px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 1);
+  border-radius: 12px;
+  border: 2px solid lightblue;
+}
+
+.sticky {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid orange;
+}
+
+.addtolist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid orange;
+}
+
+.content {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row-item {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid magenta;
+}
+
+.clear {
+  text-align: center;
+}
