@@ -84,4 +84,5 @@ clear.innerText = 'Clear all Completed';
 //
 content.appendChild(clear);
 
-document.body.appendChild(box);
+const section = document.body.querySelector('#todo-list');
+section.appendChild(box);
