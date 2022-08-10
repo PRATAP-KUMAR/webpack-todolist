@@ -1,5 +1,5 @@
 body {
-  background-color: bisque;
+  background-color: #fff;
 }
 
 .box {
@@ -7,21 +7,21 @@ body {
   padding: 20px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 12px;
-  border: 2px solid lightblue;
+  border: 1px solid #000;
 }
 
 .sticky {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid orange;
+  border-bottom: 0.5px solid #000;
 }
 
 .addtolist {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid orange;
+  border-bottom: 0.5px solid #000;
 }
 
 .content {
@@ -35,7 +35,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding-bottom: 20px;
-  border-bottom: 2px solid magenta;
+  border-bottom: 0.5px solid #000;
 }
 
 .clear {
