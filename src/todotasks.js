@@ -1,21 +1,21 @@
 const todotasks = [
   {
-    description: 'dish wash',
+    description: 'Dish wash',
     completed: true,
     index: 1,
   },
   {
-    description: 'cloths wash',
+    description: 'Cloths wash',
     completed: false,
     index: 2,
   },
   {
-    description: 'playstation games',
+    description: 'Playstation games',
     completed: true,
     index: 3,
   },
   {
-    description: 'take medicine',
+    description: 'Take medicine',
     completed: true,
     index: 4,
   },

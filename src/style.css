@@ -1,5 +1,5 @@
 body {
-  background-color: #fff;
+  background-color: #d3d3d3;
 }
 
 .box {
@@ -20,8 +20,10 @@ body {
 .addtolist {
   display: flex;
   justify-content: space-between;
+  color: #d3d3d3;
   align-items: center;
   border-bottom: 0.5px solid #000;
+  font-style: italic;
 }
 
 .content {
