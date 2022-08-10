@@ -2,7 +2,10 @@ body {
   background-color: bisque;
 }
 
-.hello {
-  color: red;
-  background: url('./icon.jpg');
-}
+h1 {
+  color: orange;
+ }
+ 
+.place-holder {
+  color: blue;
+ }
