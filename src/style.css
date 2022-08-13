@@ -73,16 +73,15 @@ body {
   font-size: 20px;
 }
 
-.strike-through {
-  color: orange;
-  background-color: red;
-}
-
 .row-item button {
   outline: none;
   border: none;
   background-color: #fff;
   cursor: pointer;
+}
+
+.strike-through {
+  text-decoration: line-through;
 }
 
 .clear {

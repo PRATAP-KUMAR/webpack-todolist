@@ -2,7 +2,6 @@ import AddItem from './modules/addItem.js';
 import './style.css';
 import Refresh from './assets/refresh.svg';
 import Enter from './assets/enter.svg';
-// import Tasks from './modules/tasks.js';
 
 const box = document.createElement('div');
 box.className = 'box';
@@ -45,7 +44,6 @@ enterBtn.setAttribute('height', 20);
 enterBtn.setAttribute('alt', 'Enter');
 enterButton.appendChild(enterBtn);
 
-//
 box.appendChild(addtolist);
 
 const content = document.createElement('div');
@@ -55,8 +53,6 @@ box.appendChild(content);
 
 const section = document.body.querySelector('#todo-list');
 section.appendChild(box);
-
-// const tasks = new Tasks();
 
 let tasks;
 
@@ -90,7 +86,6 @@ const addTask = () => {
   }
 };
 
-// event listeners
 document.getElementById('enterButton').addEventListener('click', () => addTask());
 
 document.getElementById('itemInput').addEventListener('keypress', (event) => {
@@ -98,9 +93,7 @@ document.getElementById('itemInput').addEventListener('keypress', (event) => {
     addTask();
   }
 });
-// event listeners
 
-// last item appending
 const clear = document.createElement('button');
 clear.setAttribute('id', 'clearbutton');
 clear.className = 'clear';
