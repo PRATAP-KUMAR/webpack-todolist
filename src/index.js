@@ -1,9 +1,8 @@
-// import _ from 'lodash';
+import AddItem from './modules/addItem.js';
 import './style.css';
-import todotasks from './todotasks.js';
-import Refresh from './refresh.svg';
-import Enter from './enter.svg';
-import Menu from './menu.svg';
+import Refresh from './assets/refresh.svg';
+import Enter from './assets/enter.svg';
+// import Tasks from './modules/tasks.js';
 
 const box = document.createElement('div');
 box.className = 'box';
@@ -28,61 +27,104 @@ box.appendChild(sticky);
 const addtolist = document.createElement('div');
 addtolist.className = 'addtolist';
 
-const h3 = document.createElement('h3');
-h3.innerText = 'Add to list';
-addtolist.appendChild(h3);
+const form = document.createElement('input');
+form.setAttribute('id', 'itemInput');
+form.setAttribute('type', 'input');
+form.setAttribute('name', 'add list item');
+form.setAttribute('placeholder', 'Add list item');
+addtolist.appendChild(form);
+
+const enterButton = document.createElement('button');
+enterButton.setAttribute('id', 'enterButton');
+addtolist.appendChild(enterButton);
 
 const enterBtn = document.createElement('img');
 enterBtn.setAttribute('src', Enter);
 enterBtn.setAttribute('width', 20);
 enterBtn.setAttribute('height', 20);
 enterBtn.setAttribute('alt', 'Enter');
-addtolist.appendChild(enterBtn);
+enterButton.appendChild(enterBtn);
 
 //
 box.appendChild(addtolist);
 
-// insertion starts //
-const todoList = (item) => {
-  const rowitem = document.createElement('div');
-  rowitem.className = 'row-item';
-
-  const boolean = document.createElement('input');
-  boolean.type = 'checkbox';
-
-  const desc = document.createElement('div');
-  desc.innerText = item.description;
-
-  const menuButton = document.createElement('img');
-  menuButton.setAttribute('src', Menu);
-  menuButton.setAttribute('width', 20);
-  menuButton.setAttribute('height', 20);
-  menuButton.setAttribute('alt', 'refresh');
-
-  rowitem.appendChild(boolean);
-  rowitem.appendChild(desc);
-  rowitem.appendChild(menuButton);
-
-  return rowitem;
-};
-
 const content = document.createElement('div');
 content.className = 'content';
 
-todotasks.forEach((item) => {
-  content.appendChild(todoList(item));
-});
-// insertion ends //
-
-//
 box.appendChild(content);
-
-const clear = document.createElement('div');
-clear.className = 'clear';
-clear.innerText = 'Clear all Completed';
-
-//
-content.appendChild(clear);
 
 const section = document.body.querySelector('#todo-list');
 section.appendChild(box);
+
+// const tasks = new Tasks();
+
+let tasks;
+
+window.onload = () => {
+  if (localStorage.getItem('ITEMS') === null) {
+    tasks = [];
+    return;
+  }
+  tasks = Array.from(JSON.parse(localStorage.getItem('ITEMS')));
+  tasks.forEach((item) => content.appendChild(AddItem(item)));
+};
+
+const addTask = () => {
+  const input = document.getElementById('itemInput');
+  if (input.value !== '') {
+    if (localStorage.getItem('ITEMS') === null) {
+      tasks = [];
+    } else {
+      tasks = Array.from(JSON.parse(localStorage.getItem('ITEMS')));
+    }
+    let length;
+    if (tasks.length === 0) {
+      length = 1;
+    } else {
+      length = tasks.length + 1;
+    }
+    const toAdd = { index: length, completed: false, desc: input.value };
+    localStorage.setItem('ITEMS', JSON.stringify([...JSON.parse(localStorage.getItem('ITEMS') || '[]'), toAdd]));
+    content.appendChild(AddItem(toAdd));
+    input.value = '';
+  }
+};
+
+// event listeners
+document.getElementById('enterButton').addEventListener('click', () => addTask());
+
+document.getElementById('itemInput').addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    addTask();
+  }
+});
+// event listeners
+
+// last item appending
+const clear = document.createElement('button');
+clear.setAttribute('id', 'clearbutton');
+clear.className = 'clear';
+clear.innerText = 'Clear all Completed';
+
+clear.addEventListener('click', () => {
+  const toremove = document.querySelectorAll('input:checked');
+  [...toremove].forEach((checkbox) => {
+    checkbox.parentElement.remove();
+  });
+  localStorage.clear();
+  const available = document.querySelectorAll('.desc');
+  if (available.length > 0) {
+    const newArray = [];
+
+    let length = 1;
+
+    [...available].forEach((child) => {
+      const toAdd = { index: length, completed: false, desc: child.innerText };
+      newArray.push(toAdd);
+      length += 1;
+    });
+    localStorage.setItem('ITEMS', JSON.stringify(newArray));
+  }
+});
+
+box.appendChild(clear);
