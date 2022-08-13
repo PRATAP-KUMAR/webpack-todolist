@@ -112,6 +112,19 @@ clear.addEventListener('click', () => {
     checkbox.parentElement.remove();
   });
   localStorage.clear();
+  const available = document.querySelectorAll('.desc');
+  if (available.length > 0) {
+    const newArray = [];
+
+    let length = 1;
+
+    [...available].forEach((child) => {
+      const toAdd = { index: length, completed: false, desc: child.innerText };
+      newArray.push(toAdd);
+      length += 1;
+    });
+    localStorage.setItem('ITEMS', JSON.stringify(newArray));
+  }
 });
 
 box.appendChild(clear);

@@ -10,8 +10,9 @@ const removeTask = () => {
   if (available.length > 0) {
     const newArray = [];
 
+    let length = 1;
+
     [...available].forEach((child) => {
-      let length = available.length + 1;
       const toAdd = { index: length, completed: false, desc: child.innerText };
       newArray.push(toAdd);
       length += 1;
