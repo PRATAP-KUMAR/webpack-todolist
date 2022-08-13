@@ -21,6 +21,26 @@ const removeTask = () => {
   }
 };
 
+const updateTask = () => {
+  //
+  localStorage.getItem('ITEMS');
+  const available = document.querySelectorAll('#checkbox');
+  if (available.length > 0) {
+    const newArray = [];
+    let length = 1;
+    [...available].forEach((child) => {
+      const toAdd = {
+        index: length,
+        completed: child.checked,
+        desc: child.nextElementSibling.innerText,
+      };
+      newArray.push(toAdd);
+      length += 1;
+    });
+    localStorage.setItem('ITEMS', JSON.stringify(newArray));
+  }
+};
+
 const AddItem = (item) => {
   const rowitem = document.createElement('div');
   rowitem.className = 'row-item';
@@ -28,11 +48,17 @@ const AddItem = (item) => {
   const boolean = document.createElement('input');
   boolean.setAttribute('id', 'checkbox');
   boolean.type = 'checkbox';
+  boolean.checked = item.completed;
+  if (boolean.checkd) {
+    boolean.click();
+  }
+  boolean.addEventListener('change', updateTask);
 
   const desc = document.createElement('div');
   desc.className = 'desc';
   desc.innerText = item.desc;
   desc.contentEditable = true;
+  desc.addEventListener('change', updateTask);
 
   const delImg = document.createElement('img');
   delImg.setAttribute('src', Delete);
