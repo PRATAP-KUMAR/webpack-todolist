@@ -1,8 +1,8 @@
 import AddItem from './modules/addItem.js';
 import './style.css';
-import Refresh from './refresh.svg';
-import Enter from './enter.svg';
-import Items from './modules/items.js';
+import Refresh from './assets/refresh.svg';
+import Enter from './assets/enter.svg';
+// import Tasks from './modules/tasks.js';
 
 const box = document.createElement('div');
 box.className = 'box';
@@ -56,33 +56,46 @@ box.appendChild(content);
 const section = document.body.querySelector('#todo-list');
 section.appendChild(box);
 
-let items = new Items();
+// const tasks = new Tasks();
+
+let tasks;
 
 window.onload = () => {
-  items.data = JSON.parse(localStorage.getItem('ITEMS'));
-  if (items.data === null) {
-    items.data = [];
+  if (localStorage.getItem('ITEMS') === null) {
+    tasks = [];
     return;
   }
-  items.data.forEach((item) => content.appendChild(AddItem(item)));
+  tasks = Array.from(JSON.parse(localStorage.getItem('ITEMS')));
+  tasks.forEach((item) => content.appendChild(AddItem(item)));
 };
 
-const inputAdd = () => {
+const addTask = () => {
   const input = document.getElementById('itemInput');
   if (input.value !== '') {
-    const task = { index: 1, completed: false, desc: input.value };
-    content.appendChild(AddItem(task));
-    items.itemAdd(task);
+    if (localStorage.getItem('ITEMS') === null) {
+      tasks = [];
+    } else {
+      tasks = Array.from(JSON.parse(localStorage.getItem('ITEMS')));
+    }
+    let length;
+    if (tasks.length === 0) {
+      length = 1;
+    } else {
+      length = tasks.length + 1;
+    }
+    const toAdd = { index: length, completed: false, desc: input.value };
+    localStorage.setItem('ITEMS', JSON.stringify([...JSON.parse(localStorage.getItem('ITEMS') || '[]'), toAdd]));
+    content.appendChild(AddItem(toAdd));
     input.value = '';
   }
 };
 
 // event listeners
-document.getElementById('enterButton').addEventListener('click', () => inputAdd());
+document.getElementById('enterButton').addEventListener('click', () => addTask());
 
 document.getElementById('itemInput').addEventListener('keypress', (event) => {
   if (event.key === 'Enter') {
-    inputAdd();
+    addTask();
   }
 });
 // event listeners
@@ -93,25 +106,12 @@ clear.setAttribute('id', 'clearbutton');
 clear.className = 'clear';
 clear.innerText = 'Clear all Completed';
 
-const strikeThrough = document.querySelectorAll('input[type="checkbox"]');
-[...strikeThrough].forEach((checkbox) => {
-  checkbox.addEventListener('change', () => {
-    checkbox.remove();
-  });
-});
-
 clear.addEventListener('click', () => {
   const toremove = document.querySelectorAll('input:checked');
   [...toremove].forEach((checkbox) => {
     checkbox.parentElement.remove();
   });
-  items = [];
-  const newArray = document.querySelectorAll('.row-item > div');
-  [...newArray].forEach((ele) => {
-    const newTask = { index: 1, completed: false, desc: ele.innerText };
-    items.push(newTask);
-  });
-  localStorage.setItem('ITEMS', JSON.stringify(items));
+  localStorage.clear();
 });
 
 box.appendChild(clear);
